@@ -10,6 +10,8 @@ abstract TransactionHash(String) to(String){
 
 typedef TransactionReceipt = Dynamic;
 
+typedef Transaction = Dynamic;
+
 
 abstract Address(String) to(String){
 	public inline function new(value : String){
