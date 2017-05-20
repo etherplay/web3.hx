@@ -8,9 +8,32 @@ abstract TransactionHash(String) to(String){
 	}
 }
 
-typedef TransactionReceipt = Dynamic;
+typedef TransactionReceipt = {
+	blockHash : String,
+	blockNumber : Float,
+	transactionHash : String,
+	transactionIndex : Float,
+	from : String,
+	to : String,
+	cumulativeGasUsed : Float,
+	gasUsed : Float,
+	contractAddress : String,
+	logs : Array<Dynamic>
+};
 
-typedef Transaction = Dynamic;
+typedef Transaction = {
+	hash : String,
+	nonce : Float,
+	blockHash : String,
+	blockNumber : Float,
+	transactionIndex : Float,
+	from : String,
+	to : String,
+	value : bignumberjs.BigNumber,
+	gasPrice : bignumberjs.BigNumber,
+	gas : Float,
+	input : String
+};
 
 
 abstract Address(String) to(String){

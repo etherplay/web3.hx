@@ -29,7 +29,7 @@ extern class Block{
 	var gasLimit: Float;// - the maximum gas allowed in this block.
 	var gasUsed: Float;// - the total used gas by all transactions in this block.
 	var timestamp: Float;// - the unix timestamp for when the block was collated.
-	var transactions: Array<TransactionReceipt>;//TODO Receipt? - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
+	var transactions: Array<TransactionHash>;//TODO Receipt? - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
 	var uncles: Array<String>;// - Array of uncle hashes.
 }
 
