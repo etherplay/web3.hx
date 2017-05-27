@@ -118,7 +118,20 @@ class Web3Lib{
 	//TODO similar function
 	inline static public function toWei(value : BigNumber, base : String) : String { setup(); return untyped _web3["toWei"](value,base);}
 
-	inline static public function sha3(elems : Array<Dynamic>) : String { setup(); return untyped _web3["sha3"].apply(_web3,elems);}
+	//accept only  utf8 string and number represented as hex
+	inline static public function sha3(elems : Array<String>) : String { 
+		setup();
+		var str = "";
+		for(elem in elems){
+			if(StringTools.startsWith(elem,"0x")){
+				str += elem.substr(2);
+			}else{
+				str += untyped _web3.toHex(elem).substr(2);
+			}
+		}
+		trace("web3 sha3 str", str);
+		return untyped _web3.sha3(str,{ encoding: 'hex' });
+	}
 }
 
 extern class Web3Version{
