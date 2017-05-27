@@ -117,6 +117,8 @@ class Web3Lib{
 	}
 	//TODO similar function
 	inline static public function toWei(value : BigNumber, base : String) : String { setup(); return untyped _web3["toWei"](value,base);}
+
+	inline static public function sha3(elems : Array<Dynamic>) : String { setup(); return untyped _web3["sha3"].apply(_web3,elems);}
 }
 
 extern class Web3Version{
