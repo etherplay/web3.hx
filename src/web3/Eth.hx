@@ -48,7 +48,7 @@ extern class Eth{
 	function getTransactionReceipt(txHash : TransactionHash, callback : Error -> TransactionReceipt -> Void) : Void;
 	function getTransaction(txHash : TransactionHash, callback : Error -> Dynamic -> Void) : Void;
 	function sendTransaction(txObject : Dynamic, callback : Error -> Dynamic -> Void) : Void; //TODO remove Dynamic
-	function sendRawTransaction(tx : String, callback : Error -> String -> Void) : Void; 
+	function sendRawTransaction(tx : String, callback : Error -> TransactionHash -> Void) : Void; 
 	function filter(t : String) : Dynamic; //TODO
 	function getBalance(address : Address, callback : Error -> Wei -> Void) : Void;
 	function getBlockNumber(callback : Error -> Float -> Void) : Void;

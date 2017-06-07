@@ -82,7 +82,9 @@ typedef TransactionInfo = {
 	?from: Address,
 	?value: Wei,
 	gas : UInt,
-	?gasPrice : Wei
+	?gasPrice : Wei,
+	?nonce : UInt, //TODO check UInt ?
+	?privateKey : Dynamic
 }
 
 typedef Error = Dynamic;
