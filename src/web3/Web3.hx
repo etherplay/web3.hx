@@ -131,7 +131,7 @@ class Web3Lib{
 				str += untyped _web3.toHex(elem).substr(2);
 			}
 		}
-		trace("web3 sha3 str", str);
+		// trace("web3 sha3 str", str);
 		return untyped _web3.sha3(str,{ encoding: 'hex' });
 	}
 }
