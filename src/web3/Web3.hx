@@ -8,6 +8,19 @@ abstract TransactionHash(String) to(String){
 	}
 }
 
+typedef Log = {
+	removed: Bool, // ? only in the doc
+	logIndex: UInt,
+	transactionIndex: UInt,
+	transactionHash: String,
+	blockHash: String,
+	blockNumber: Float,
+	address: Address,
+	data: String,
+	topics: Array<String>,
+	type : String // ? not in the doc 
+}
+
 typedef TransactionReceipt = {
 	blockHash : String,
 	blockNumber : Float,
