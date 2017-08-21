@@ -40,6 +40,10 @@ abstract Address(String) to(String){
 	public inline function new(value : String){
 		this = value;
 	}
+
+	public inline function toLowerCase() : Address{
+		return new Address(this.toLowerCase());
+	}
 }
 
 @:forward
