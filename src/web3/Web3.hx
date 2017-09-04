@@ -151,6 +151,31 @@ class Web3Lib{
 		// trace("web3 sha3 str", str);
 		return untyped _web3.sha3(str,{ encoding: 'hex' });
 	}
+
+	static public function getLogs(web3 : Web3, topics : Array<String>, fromBlock : String, toBlock : String, address : String, callback : Dynamic -> Array<Log> -> Void){
+		var jsonRPCData = {
+			method: "eth_getLogs",
+			params: [{
+  				fromBlock : fromBlock,
+  				toBlock : toBlock,
+  				address:address,
+  				topics: topics
+			}],
+			jsonrpc: "2.0",
+			id: Std.int(Math.random() * 1000000)
+		};
+		untyped web3.currentProvider.sendAsync(jsonRPCData, function (err, result) {
+			if(err != null){
+				callback(err,null);
+			}else if(result.error != null){
+				callback(result.error,null);
+			}else if(result.result == null){
+				callback("no result",null);
+			}else{
+				callback(null,result.result);
+			}
+		});
+	}
 }
 
 extern class Web3Version{
@@ -164,4 +189,6 @@ extern class Web3{
 	function setProvider(provider : Provider) : Void;
 	function isConnected() : Bool;
 	function reset() : Void;
+	function sha3(str : String, ?option:Dynamic):String; //TODO remove Dynamic
+	function toHex(v:Dynamic):String;
 }
