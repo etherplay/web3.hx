@@ -4,15 +4,15 @@ import web3.Web3;
 
 class Web3Util{
 
-	public static function createHttpProvider(url : String) : Provider{
-		return untyped  __js__("new Web3.providers.HttpProvider(url)");
-	};
-	#if nodejs
-	public static function createIpcProvider(url : String) : Provider{
-		var client = new js.node.net.Socket();
-		return untyped  __js__("new Web3.providers.IpcProvider(url,client)");
-	};
-	#end
+	// public static function createHttpProvider(url : String) : Provider{
+	// 	return untyped  __js__("new Web3.providers.HttpProvider(url)");
+	// };
+	// #if nodejs
+	// public static function createIpcProvider(url : String) : Provider{
+	// 	var client = new js.node.net.Socket();
+	// 	return untyped  __js__("new Web3.providers.IpcProvider(url,client)");
+	// };
+	// #end
 
 	//accept only  utf8 string and number represented as hex
 	inline static public function sha3(web3 : Web3, elems : Array<String>) : String { 

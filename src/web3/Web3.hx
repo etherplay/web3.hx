@@ -1,7 +1,6 @@
 package web3;
 
-import haxe.ds.Either;
-
+import haxe.extern.EitherType;
 import web3.providers.HttpProvider;
 
 abstract TransactionHash(String) to(String){
@@ -80,38 +79,35 @@ typedef TransactionInfo = {
 
 typedef Error = Dynamic;
 
-extern class Web3Version{
-	function getNetwork(callback : Error -> String -> Void) : Void;
-}
-
 extern class Providers{
 	// @:native("HttpProvider")
 	function HttpProvider(url:String) : HttpProvider;
 }
 
 #if hxnodejs
-@:require("web3")
+@:jsRequire("web3")
 #end
+@:native("Web3")
 extern class Web3{
-	function new(?provider : Either<String,Provider>);
-	static var providers : Providers;
-	static var utils : Utils; 
+	function new(?provider : EitherType<String,Provider>);
 	var eth : Eth;
-	var version : Web3Version;
 	var currentProvider : Provider;
 	function setProvider(provider : Provider) : Void;
 	function isConnected() : Bool;
 	function reset() : Void;	
 }
 
+@:native("Web3.utils")
 extern class Utils{
-	static function BN(number:Either<String,Float>) : BN;
+	// @:native("BN")
+	static function BN(number:EitherType<String,Float>) : BN;
 	static function toBN(val : Dynamic) : BN;
 
 	@:overload(function(number:BN,?unit:String):BN{})
-	static function toWei(number:Either<String,Float>,?unit : String) : String;
+	static function toWei(number:EitherType<String,Float>,?unit : String) : String;
+	static function fromWei(number:EitherType<String,Float>,?unit : String) : String;
 
 	static function soliditySha3(args : haxe.extern.Rest<Dynamic>):String;
-	static function sha3(str : Either<String,BN>):String; 
+	static function sha3(str : EitherType<String,BN>):String; 
 	static function toHex(v:Dynamic):String;
 }

@@ -38,22 +38,27 @@ abstract SpecialBlock(String){
 	var Latest = "latest";
 }
 
+extern class Net{
+	function getId(?callback : Error -> String -> Void) : js.Promise<String>;
+}
+
 extern class Eth{
 	var defaultAccount : Address;
+	var net : Net;
 	// var accounts : Array<Address>;
 	function isSyncing(callback : Error -> haxe.extern.EitherType<Bool,SyncingData> -> Void) : SyncingHandle;
-	function getSyncing(callback : Error -> haxe.extern.EitherType<Bool,SyncingData> -> Void) : Void;
-	function getAccounts(callback : Error -> Array<Address> -> Void) : Void;
+	function getSyncing(?callback : Error -> haxe.extern.EitherType<Bool,SyncingData> -> Void) : js.Promise<haxe.extern.EitherType<Bool,SyncingData>>;
+	function getAccounts(?callback : Error -> Array<Address> -> Void) : js.Promise<Array<Address>>;
 	function contract(abi : Dynamic) : Dynamic;
-	function getTransactionReceipt(txHash : TransactionHash, callback : Error -> TransactionReceipt -> Void) : Void;
-	function getTransaction(txHash : TransactionHash, callback : Error -> Dynamic -> Void) : Void;
-	function sendTransaction(txObject : Dynamic, callback : Error -> Dynamic -> Void) : Void; //TODO remove Dynamic
-	function sendRawTransaction(tx : String, callback : Error -> TransactionHash -> Void) : Void; 
+	function getTransactionReceipt(txHash : TransactionHash, ?callback : Error -> TransactionReceipt -> Void) : js.Promise<TransactionReceipt>;
+	function getTransaction(txHash : TransactionHash, ?callback : Error -> Dynamic -> Void) : js.Promise<Dynamic>;
+	function sendTransaction(txObject : Dynamic, ?callback : Error -> Dynamic -> Void) : js.Promise<Dynamic>; //TODO remove Dynamic
+	function sendRawTransaction(tx : String, ?callback : Error -> TransactionHash -> Void) : js.Promise<TransactionHash>; 
 	function filter(t : Dynamic) : Dynamic; //TODO
-	function getBalance(address : Address, callback : Error -> String -> Void) : Void;
-	function getBlockNumber(callback : Error -> Float -> Void) : Void;
-	function getBlock(blockNumber : haxe.extern.EitherType<SpecialBlock,Float>, callback : Error -> Block -> Void) : Void;
-	function getGasPrice(callback : Error -> String -> Void) : Void;
-	function getTransactionFromBlock(block : String, index : UInt, callback : Error -> Dynamic -> Void) : Void;
-	function getTransactionCount(address : Address, callback : Error -> UInt -> Void) : Void;
+	function getBalance(address : Address,?callback : Error -> String -> Void) : js.Promise<String>;
+	function getBlockNumber(?callback : Error -> Float -> Void) : js.Promise<Float>;
+	function getBlock(blockNumber : haxe.extern.EitherType<SpecialBlock,Float>, ?callback : Error -> Block -> Void) : js.Promise<Block>;
+	function getGasPrice(?callback : Error -> String -> Void) : js.Promise<String>;
+	function getTransactionFromBlock(block : String, index : UInt, ?callback : Error -> Dynamic -> Void) : js.Promise<Dynamic>;
+	function getTransactionCount(address : Address, ?callback : Error -> UInt -> Void)  : js.Promise<UInt>;
 }
