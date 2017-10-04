@@ -11,7 +11,7 @@ abstract TransactionHash(String) to(String){
 
 abstract Wei(String) to(String){
 	inline public function toString():String{return this;}
-	inline function new(s : String){
+	inline public function new(s : String){
 		this = s;
 	}
 	@:to inline public function toEther() : Ether {
@@ -158,6 +158,7 @@ typedef TransactionInfo = {
 	gas : UInt,
 	?gasPrice : Wei,
 	?nonce : UInt, 
+	?to:Address
 }
 
 typedef SignedTransaction = {

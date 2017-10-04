@@ -1,6 +1,7 @@
 package web3;
 
 import web3.Web3;
+import web3.eth.Contract;
 
 extern class SyncingData{
 	var startingBlock : Float;
@@ -58,9 +59,29 @@ typedef LogOptions = {
 	topics : Array<haxe.ds.Either<String,Array<String>>> 
 }
 
+extern class Account{
+	var address : Address;
+	var privateKey : String;
+	function signTransaction(txData : Dynamic, ?callback:Error -> Dynamic -> Void) : Dynamic; //TODO remove Dynamic
+	// function sign(data : String)
+	//TODO more
+}
+
+extern class Accounts{
+	function privateKeyToAccount(pk : String): Account;
+	//TODO more
+}
+
 extern class Eth{
 	var defaultAccount : Address;
 	var net : Net;
+
+
+	var accounts : Accounts;
+
+	inline function newContract(abi : ABI, ?address : Address, ?options:ContractOptions) : Contract{
+		return untyped __new__(this.Contract, abi,address,options);
+	}
 
 	function isSyncing(callback : Error -> haxe.extern.EitherType<Bool,SyncingData> -> Void) : SyncingHandle;
 	function getSyncing(?callback : Error -> haxe.extern.EitherType<Bool,SyncingData> -> Void) : js.Promise<haxe.extern.EitherType<Bool,SyncingData>>;
@@ -74,10 +95,10 @@ extern class Eth{
 	function sendTransaction(txInfo : TransactionInfo, ?callback : Error -> TransactionHash -> Void) : Web3PromiEvent;
 	
 
-	function getBalance(address : Address,?callback : Error -> String -> Void) : js.Promise<String>;
+	function getBalance(address : Address,?callback : Error -> Wei -> Void) : js.Promise<Wei>;
 	function getBlockNumber(?callback : Error -> Float -> Void) : js.Promise<Float>;
 	function getBlock(blockNumber : haxe.extern.EitherType<SpecialBlock,Float>, ?callback : Error -> Block -> Void) : js.Promise<Block>;
-	function getGasPrice(?callback : Error -> String -> Void) : js.Promise<String>;
+	function getGasPrice(?callback : Error -> Wei -> Void) : js.Promise<Wei>;
 	function getTransactionFromBlock(block : String, index : UInt, ?callback : Error -> Transaction -> Void) : js.Promise<Transaction>;
 	function getTransactionCount(address : Address, ?callback : Error -> UInt -> Void)  : js.Promise<UInt>;
 

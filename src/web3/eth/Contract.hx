@@ -74,7 +74,7 @@ extern class MethodTransaction{
 
 
 extern class Contract{
-	function new(abi : ABI, ?address : Address, ?options:ContractOptions);
+	// function new(abi : ABI, ?address : Address, ?options:ContractOptions);
 	var options : ContractCurrentOptions;
 	function clone() : Contract;
 	function deploy(options : DeployOptions) : DeployTransaction;
