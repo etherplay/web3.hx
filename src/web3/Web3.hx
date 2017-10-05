@@ -158,7 +158,8 @@ typedef TransactionInfo = {
 	gas : UInt,
 	?gasPrice : Wei,
 	?nonce : UInt, 
-	?to:Address
+	?to:Address,
+	?data:String
 }
 
 typedef SignedTransaction = {

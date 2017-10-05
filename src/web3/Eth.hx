@@ -34,6 +34,8 @@ extern class PromiEvent<T> extends js.Promise<T>{
 
 	@:overload(function(eventType : PromiEventType, callback : Dynamic -> Dynamic -> Void):PromiEvent<T>{})
 	function off(eventType : PromiEventType, callback : Dynamic -> Void) : PromiEvent<T>; //TODO test
+
+	function removeAllListeners(?eventType:PromiEventType) : PromiEvent<T>;
 }
 
 @:forward
