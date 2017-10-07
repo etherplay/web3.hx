@@ -1,5 +1,6 @@
 package web3;
 
+import haxe.extern.EitherType;
 import web3.Web3;
 import web3.eth.Contract;
 
@@ -16,6 +17,17 @@ extern class SyncingHandle{
 
 extern class Net{
 	function getId(?callback : Error -> String -> Void) : js.Promise<String>;
+}
+
+extern class Abi{
+	function encodeFunctionSignature(functionName : EitherType<ABIElement,String>):String;
+	function encodeEventSignature(eventName : EitherType<ABIElement,String>):String;
+	function encodeParameter(type : String, parameter : Dynamic) : String; //TODO remove Dynamic ?
+	function encodeParameters(typesArray:EitherType<Array<ABIParam>,Array<String>>, parameters : Array<Dynamic>) : String; //TODO remove Dynamic ?
+	function encodeFunctionCall(jsonInterface : ABIElement, parameters : Array<Dynamic>) : String; //TODO remove Dynamic ?
+	function decodeParameter(type:String,hexString:String):Dynamic; //is the return not allways a String ?
+	function decodeParameters(typesArray:EitherType<Array<ABIParam>,Array<String>>,hexString : String):Dynamic;
+	function decodeLog(inputs:Array<ABIParam>,hexString:String,topics:Array<String>):Dynamic;
 }
 
 @:enum
@@ -77,7 +89,7 @@ extern class Accounts{
 extern class Eth{
 	var defaultAccount : Address;
 	var net : Net;
-
+	var abi : Abi;
 
 	var accounts : Accounts;
 

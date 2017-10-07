@@ -3,6 +3,26 @@ package web3.eth;
 import web3.Web3;
 import web3.Eth;
 
+typedef ContractEvent = {
+    raw: {
+        data: String,
+        topics: Array<String>
+    },
+    event: String,
+    signature: String,
+    logIndex: UInt,
+    transactionIndex: UInt,
+    transactionHash: TransactionHash,
+    blockHash: String,
+    blockNumber: Float,
+    address: Address
+}
+
+typedef GenericContractEvent = {
+	> ContractEvent,
+	returnValues: Dynamic
+}
+	
 typedef ContractOptions = {
 	?from:Address,
 	?gasPrice:Wei,
@@ -79,7 +99,7 @@ extern class Contract{
 	function clone() : Contract;
 	function deploy(options : DeployOptions) : DeployTransaction;
 	var methods : Dynamic;
-	function once(event : String,?options:Dynamic, callback : Error -> Log -> Void) : Void; //TODO Dynamic //TODO check argument provided / not provided
+	function once(event : String,?options:Dynamic, callback : Error -> GenericContractEvent -> Void) : Void; //TODO Dynamic //TODO check argument provided / not provided
 	var events : Dynamic; //.allEvents(...)
-	function getPastEvents(event : String, ?options:Dynamic,callback : Error -> Array<Log> -> Void) : js.Promise<Array<Log>>; //TODO Dynamic
+	function getPastEvents(event : String, ?options:Dynamic,callback : Error -> Array<GenericContractEvent> -> Void) : js.Promise<Array<GenericContractEvent>>; //TODO Dynamic
 }
