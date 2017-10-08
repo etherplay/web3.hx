@@ -86,6 +86,14 @@ extern class Accounts{
 	//TODO more
 }
 
+@:enum 
+abstract SubscriptionType(String){
+	 var PendingTransactions = "pendingTransactions";
+	 var NewBlockHeaders = "newBlockHeaders";
+	 var Syncing = "syncing";
+	 var Logs = "logs";
+}
+
 extern class Eth{
 	var defaultAccount : Address;
 	var net : Net;
@@ -119,4 +127,10 @@ extern class Eth{
 
 	function getPastLogs(options : LogOptions, ?callback : Error -> Array<Log> -> Void) : js.Promise<Array<Log>>;
 	
+	function clearSubscriptions(?exceptSyncing:Bool):Void;
+	function subscribe(type:SubscriptionType,?options:Dynamic,?callback:Error->Dynamic->Void):js.node.events.EventEmitter<Dynamic>; //TODO remove Dynamic
+
+	// inline function subscribePendingTransactions(?callback:Error->Dynamic->Void):js.node.events.EventEmitter{
+	// 	subscribe(PendingTransactions,callback)
+	// }
 }
