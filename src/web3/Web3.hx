@@ -3,6 +3,12 @@ package web3;
 import haxe.extern.EitherType;
 import web3.providers.HttpProvider;
 
+
+typedef ExtendedTransactionInfo = {
+	> TransactionInfo
+	,?privateKey : String
+}
+
 abstract TransactionHash(String) to(String){
 	public inline function new(value : String){
 		this = value;
